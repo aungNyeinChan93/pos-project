@@ -7,7 +7,8 @@ use App\Http\Controllers\UserController;
 //     Route::get("/index",[UserController::class,"index"])->name("userHome");
 // });
 
-Route::get("users/home",[UserController::class, "index"])->name("userHome");
 
-
+Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
+    Route::get("/home",[UserController::class, "index"])->name("userHome");
+});
 
