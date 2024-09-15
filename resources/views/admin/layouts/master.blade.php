@@ -12,13 +12,15 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href=" {{asset("admin/css/sb-admin-2.min.css")}}" rel="stylesheet">
+    <link href=" {{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -43,11 +45,12 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                <a class="nav-link" href="{{ route("adminHome") }}"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("category#list") }}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('category#list') }}"><i
+                        class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
@@ -55,7 +58,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -63,7 +67,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -71,7 +76,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -79,40 +85,96 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password
+                    </span></a>
             </li>
 
             <li class="nav-item">
-                <form action="{{ route("logout") }} " method="POST">
+                <form action="{{ route('logout') }} " method="POST">
                     @csrf
                     <button class="btn nav-link" type="submit">
                         <a class="nav-link"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout </span></a>
-                    </span>
+                        </span>
                 </form>
             </li>
         </ul>
         <!-- End of Sidebar -->
 
-        @yield('content')
-        @include('sweetalert::alert')
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src=" {{asset("admin/vendor/jquery/jquery.min.js")}}"></script>
-    <script src=" {{asset("admin/vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src=" {{asset("admin/vendor/jquery-easing/jquery.easing.min.js")}}"></script>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
 
-    <!-- Custom scripts for all pages-->
-    <script src=" {{asset("admin/js/sb-admin-2.min.js")}}"></script>
 
-    <!-- Page level plugins -->
-    <script src=" {{asset("admin/vendor/chart.js/Chart.min.js")}}"></script>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                    Change Password
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
 
-    <!-- Page level custom scripts -->
-    <script src=" {{asset("admin/js/demo/chart-area-demo.js")}}"></script>
-    <script src=" {{asset("admin/js/demo/chart-pie-demo.js")}}"></script>
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    @yield('content')
+                    @include('sweetalert::alert')
+
+                </div>
+
+                <!-- Bootstrap core JavaScript-->
+                <script src=" {{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+                <script src=" {{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+                <!-- Core plugin JavaScript-->
+                <script src=" {{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src=" {{ asset('admin/js/sb-admin-2.min.js') }}"></script>
+
+                <!-- Page level plugins -->
+                <script src=" {{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
+
+                <!-- Page level custom scripts -->
+                <script src=" {{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
+                <script src=" {{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
 
