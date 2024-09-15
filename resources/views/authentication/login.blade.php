@@ -18,6 +18,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+
                                     <form class="user" method="POST" action="{{ route("login") }}">
                                         @csrf
                                         <div class="form-group">
@@ -35,13 +36,13 @@
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                         </div>
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>

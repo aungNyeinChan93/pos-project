@@ -47,7 +47,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route("category#list") }}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
@@ -94,6 +94,8 @@
         <!-- End of Sidebar -->
 
         @yield('content')
+        @include('sweetalert::alert')
+
 
     <!-- Bootstrap core JavaScript-->
     <script src=" {{asset("admin/vendor/jquery/jquery.min.js")}}"></script>
