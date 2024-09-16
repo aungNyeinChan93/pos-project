@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Mail\CategoryMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
@@ -21,8 +24,9 @@ class CategoryController extends Controller
         ],[
             "name.required"=> "Category name is required!",
         ]);
-        Category::create($valitaded);
+        $category = Category::create($valitaded);
         Alert::alert('Category create', 'Create Success!' );
+        Mail::to(Auth::user()->email)->send(new CategoryMail($category));
         return back();
     }
 
