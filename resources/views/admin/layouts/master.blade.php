@@ -45,7 +45,8 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("adminHome") }}"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                <a class="nav-link" href="{{ route('adminHome') }}"><i class="fas fa-fw fa-table"></i><span>Dashboard
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -85,16 +86,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password
+                <a class="nav-link" href="{{ route("password#show") }}"><i class="fa-solid fa-lock"></i></i></i><span>Change Password
                     </span></a>
             </li>
 
             <li class="nav-item">
-                <form action="{{ route('logout') }} " method="POST">
+                <form class="" action="{{ route('logout') }} " method="POST">
                     @csrf
                     <button class="btn nav-link" type="submit">
-                        <a class="nav-link"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout </span></a>
-                        </span>
+                        <a class="nav-link"><i class="fa-solid fa-right-from-bracket"></i><span>Logout </span></a>
                 </form>
             </li>
         </ul>
@@ -119,29 +119,35 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
+                                <img class="img-profile rounded-circle" src="{{ asset("admin/img/undraw_profile.svg") }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route("profile#page") }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Profile123
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route("password#show") }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                     data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">
+                                    </i>
+
+                                    <form action="{{ route("logout") }}" method="POST" class=" d-inline">
+                                        @csrf
+                                        <input type="submit" value="Logout" class="btn btn-sm btn-outline-primary">
+                                    </form>
+
                                 </a>
                             </div>
                         </li>
