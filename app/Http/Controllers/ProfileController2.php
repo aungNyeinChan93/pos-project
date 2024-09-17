@@ -56,7 +56,6 @@ class ProfileController2 extends Controller
     public function update(Request $request){
         $this->profileUpdateValidation($request);
 
-
         if(request()->hasFile("image")){
             if(Auth::user()->profile_image != null ){
                 if( file_exists(public_path("/profile/".Auth::user()->profile_image))){
@@ -64,7 +63,7 @@ class ProfileController2 extends Controller
                 }
             }
 
-            $fileName = request()->file("image")->getClientOriginalName();
+            $fileName =uniqid()."_anc_". request()->file("image")->getClientOriginalName();
             request()->file("image")->move(public_path()."/profile/",$fileName);
             User::where("id",Auth::user()->id)->update([
                 "name"=> $request->name,
@@ -77,7 +76,7 @@ class ProfileController2 extends Controller
                 "name"=> $request->name,
                 "email"=> $request->email,
                 "phone"=> $request->phone,
-                "profile_image"=> Auth::user()->profile_image,
+                // "profile_image"=> Auth::user()->profile_image,
             ]);
         }
         Alert::alert('Profile Update', 'Profile Update Success' );

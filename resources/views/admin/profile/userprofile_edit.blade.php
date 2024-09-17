@@ -39,7 +39,7 @@
                                             is-invalid
                                         @enderror"
                                         placeholder="Name ..."
-                                        value="{{ old("name",Auth::user()->name) }}"
+                                        value="{{ old("name",Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickName) }}"
                                         >
                                         @error("name")
                                         <small class="text-danger">{{ $message }}</small>
