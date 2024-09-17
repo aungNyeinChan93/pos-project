@@ -23,6 +23,8 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("passwordChangePage",[ProfileController2::class,"show"])->name("password#show");
         Route::put("passwordChang",[ProfileController2::class,"change"])->name("password#change");
         Route::get("profilePage",[ProfileController2::class, "profilePage"])->name("profile#page");
+        Route::get("edit",[ProfileController2::class, "edit"])->name("profile#edit");
+        Route::put("update",[ProfileController2::class, "update"])->name("profile#update");
     });
 
 

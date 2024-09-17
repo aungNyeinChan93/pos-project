@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    @vite(['resources/js/app.js'])
 
     <title>SB Admin 2 - Dashboard</title>
 
@@ -37,7 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Code Lab Studio</div>
+                <div class="sidebar-brand-text mx-3">POS Project</div>
             </a>
 
             <!-- Divider -->
@@ -86,7 +87,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("password#show") }}"><i class="fa-solid fa-lock"></i></i></i><span>Change Password
+                <a class="nav-link" href="{{ route('password#show') }}"><i
+                        class="fa-solid fa-lock"></i></i></i><span>Change Password
                     </span></a>
             </li>
 
@@ -119,13 +121,15 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset("admin/img/undraw_profile.svg") }}">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset(Auth::user()->profile_image == null ?"admin/img/undraw_profile.svg": "/profile/".Auth::user()->profile_image) }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route("profile#page") }}">
+                                <a class="dropdown-item" href="{{ route('profile#page') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile123
                                 </a>
@@ -133,7 +137,7 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
-                                <a class="dropdown-item" href="{{ route("password#show") }}">
+                                <a class="dropdown-item" href="{{ route('password#show') }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>
@@ -143,7 +147,7 @@
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">
                                     </i>
 
-                                    <form action="{{ route("logout") }}" method="POST" class=" d-inline">
+                                    <form action="{{ route('logout') }}" method="POST" class=" d-inline">
                                         @csrf
                                         <input type="submit" value="Logout" class="btn btn-sm btn-outline-primary">
                                     </form>
@@ -181,6 +185,17 @@
                 <!-- Page level custom scripts -->
                 <script src=" {{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
                 <script src=" {{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
+
+                <script>
+                    function loadFile(event) {
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            let image = document.getElementById("output");
+                            image.src = reader.result;
+                        }
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 
 </body>
 
