@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController2;
 
 Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
@@ -27,6 +28,15 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::put("update",[ProfileController2::class, "update"])->name("profile#update");
         Route::get("admin/create",[ProfileController2::class, "createPage"])->name("profile#adminAccCreate");
         Route::post("admin/create",[ProfileController2::class, "create"])->name("profile#adminAccCreateAction");
+
+    });
+
+    // Payment
+    Route::prefix("payment")->group(function(){
+        Route::get("list",[PaymentController::class,"list"])->name("payment#list");
+        Route::post("create",[PaymentController::class,"create"])->name("payment#create");
+        Route::get("edit/{payment}",[PaymentController::class,"edit"])->name("payment#edit");
+        Route::put("update/{payment}",[PaymentController::class,"update"])->name("payment#update");
 
     });
 

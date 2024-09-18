@@ -68,10 +68,12 @@
                 <a class="nav-link" href="#"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
-                    </span></a>
-            </li>
+            @if(Auth::user()->role == "superAdmin")
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route("payment#list") }}"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
+                        </span></a>
+                </li>
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
