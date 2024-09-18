@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController2 extends Controller
 {
-    // show page
+    // password change page
     public function show()
     {
         return view("admin.profile.changePassword_show");
@@ -38,8 +38,6 @@ class ProfileController2 extends Controller
             Alert::alert('Fail', 'Password Changing failed! ,Try again...' );
             return back();
         }
-
-
     }
 
     // Profile Page
@@ -83,6 +81,45 @@ class ProfileController2 extends Controller
         return to_route("profile#page");
     }
 
+    // admin acc create page
+    public function createPage(){
+        return view("admin.profile.createAdminAccount");
+
+    }
+
+    // admin account create
+    public function create(Request $request){
+        // dd($request->all());
+        $this->adminCreateValidation($request);
+        $data = $this->adminCreateData($request);
+        User::create($data);
+        Alert::alert('Create Admin', 'Create Admin Account Success' );
+        return to_route("profile#page");
+    }
+
+
+
+
+    ######################################################
+    // adminCreateData
+    private function adminCreateData($request){
+        return[
+            "name"=> $request->name,
+            "email"=> $request->email,
+            "password"=> Hash::make($request->password),
+            "role"=>"admin",
+        ];
+    }
+
+    // adminCreateValidation
+    private function adminCreateValidation($request){
+        $request->validate([
+            "name"=>"required|min:3|max:30",
+            "email"=>"required|email|unique:users,email,",
+            "password"=>"required|confirmed",
+            "password_confirmation"=>"required|same:password",
+        ]);
+    }
 
     // passwordValidation
     private function passwordValidation($request)

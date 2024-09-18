@@ -135,8 +135,14 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Setting
                                 </a>
+                                @if(Auth::user()->role == "superAdmin")
+                                    <a class="dropdown-item" href="{{ route("profile#adminAccCreate") }}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Create Admin Account
+                                    </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('password#show') }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password

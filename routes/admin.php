@@ -25,6 +25,9 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("profilePage",[ProfileController2::class, "profilePage"])->name("profile#page");
         Route::get("edit",[ProfileController2::class, "edit"])->name("profile#edit");
         Route::put("update",[ProfileController2::class, "update"])->name("profile#update");
+        Route::get("admin/create",[ProfileController2::class, "createPage"])->name("profile#adminAccCreate");
+        Route::post("admin/create",[ProfileController2::class, "create"])->name("profile#adminAccCreateAction");
+
     });
 
 
