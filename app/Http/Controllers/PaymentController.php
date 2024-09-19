@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     // payment list
     public function list(){
-        $payments= Payment::orderBy("id","desc")->paginate();
+        $payments= Payment::orderBy("id","desc")->paginate(4);
         return view("admin.payment.list",compact("payments"));
     }
 
@@ -43,6 +43,11 @@ class PaymentController extends Controller
         Alert::alert('Update Payment', 'Update Payment Account Success' );
         return to_route("payment#list");
 
+    }
+
+    public function delete(Payment $payment){
+        $payment->delete();
+        return back();
     }
 
     #######################

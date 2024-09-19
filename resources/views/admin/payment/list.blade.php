@@ -3,8 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
-                <div class="card mt-2">
+            <div class="col-4 mt-3">
+
+                <div class="card my-5">
                     <div class="card-header">
                         <h5 class="text-center mt-2"> Payment </h5>
                     </div>
@@ -62,27 +63,32 @@
                 </div>
             </div>
             <div class="col">
+
+
+                {{ $payments->links('pagination::bootstrap-5') }}
                 <div class="row">
                    @foreach ($payments as $payment)
                     <div class="col-6 my-2">
-                        <div class="card">
-                            <div class="card-header">Payment Method</div>
-                            <div class="card-body">
-                                <div class="my-2">
-                                    <div class="h5 ">Account Name <span class="text-danger "> {{ $payment->account_name }}</span></div>
-                                    <span class="text-danger fs-2">{{ $payment->account_number }}</span>
-                                    <span class="fs-4 text-info">{{ $payment->account_type }} </span>
-                                </div>
-                                <div class="btn-group">
-                                    <a href="{{ route("payment#edit",$payment->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        <div class="parent" style="height: 220px">
+                            <div class="card h-100 p-2">
+                                <div class="card-header">Payment Method</div>
+                                <div class="card-body">
+                                    <div class="my-2">
+                                        <div class="h5 ">Account Name <span class="text-danger "> {{ $payment->account_name }}</span></div>
+                                        <span class="text-danger fs-2">{{ $payment->account_number }}</span>
+                                        <span class="fs-4 text-info">{{ $payment->account_type }} </span>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ route("payment#edit",$payment->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{ route("payment#delete",$payment->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                    @endforeach
                 </div>
-            </div>
+            </>
         </div>
     </div>
 @endsection

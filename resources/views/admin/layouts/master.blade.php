@@ -133,7 +133,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('profile#page') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile123
+                                    Profile
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -143,6 +143,12 @@
                                     <a class="dropdown-item" href="{{ route("profile#adminAccCreate") }}">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Create Admin Account
+                                    </a>
+                                @endif
+                                @if(Auth::user()->role == "superAdmin")
+                                    <a class="dropdown-item" href="{{ route('adminList#index') }}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                        Manage Admin Account
                                     </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('password#show') }}">

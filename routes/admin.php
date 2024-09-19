@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\adminListController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController2;
@@ -26,19 +27,29 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("profilePage",[ProfileController2::class, "profilePage"])->name("profile#page");
         Route::get("edit",[ProfileController2::class, "edit"])->name("profile#edit");
         Route::put("update",[ProfileController2::class, "update"])->name("profile#update");
-        Route::get("admin/create",[ProfileController2::class, "createPage"])->name("profile#adminAccCreate");
-        Route::post("admin/create",[ProfileController2::class, "create"])->name("profile#adminAccCreateAction");
-
+        Route::middleware('superadmin')->group(function () {
+            Route::get("admin/create",[ProfileController2::class, "createPage"])->name("profile#adminAccCreate");
+            Route::post("admin/create",[ProfileController2::class, "create"])->name("profile#adminAccCreateAction");
+       });
     });
 
     // Payment
-    Route::prefix("payment")->group(function(){
+    Route::group(["prefix"=>"payment","middleware"=>"superadmin"],function(){
         Route::get("list",[PaymentController::class,"list"])->name("payment#list");
         Route::post("create",[PaymentController::class,"create"])->name("payment#create");
         Route::get("edit/{payment}",[PaymentController::class,"edit"])->name("payment#edit");
         Route::put("update/{payment}",[PaymentController::class,"update"])->name("payment#update");
+        Route::get("delete/{payment}",[PaymentController::class,"delete"])->name("payment#delete");
 
     });
+
+    // admin List
+    Route::group(["middleware"=>"superadmin","prefix"=>"adminList"],function(){
+        Route::get("list",[adminListController::class,"list"])->name("adminList#index");
+        Route::get("delete/{user}",[adminListController::class,"delete"])->name("adminList#delete");
+    });
+
+
 
 
 
