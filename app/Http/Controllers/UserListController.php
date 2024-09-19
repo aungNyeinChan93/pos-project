@@ -6,22 +6,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class adminListController extends Controller
+class UserListController extends Controller
 {
-    // admin list
+    // user  list
     public function list(){
         // dd(request()->searchKey);
-
-        $admins = User::select(["id","name","nickName","email","phone","role","created_at","provider"])
-                    ->whereIn("role",["admin","superAdmin"])
+        $users = User::select(["id","name","nickName","email","phone","role","created_at","provider"])
+                    ->where("role","user")
                     ->when(request()->searchKey,function($query){
                         $query->whereAny(["name","email","phone","address","role","provider"],"like","%".request()->searchKey."%");
                     })
                     ->paginate(7);
-        return view("admin.adminList.list",compact("admins"));
+        return view("admin.userList.list",compact("users"));
     }
 
-    // adminlist delete
+    // user delete
     public function delete(User $user){
         $user->delete();
         Alert::alert('User Account Delete', 'Delete Success!' );

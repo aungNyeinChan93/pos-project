@@ -1,4 +1,4 @@
-@extends("admin.layouts.master")
+    @extends("admin.layouts.master")
 
 @section("content")
 
@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="parent d-flex justify-content-end">
-                    <form action="{{ route("adminList#index") }}" method="get">
+                    <form action="{{ route("userList#index") }}" method="get">
                         <div class="input-group mb-3">
                             <input type="text" name="searchKey" class="form-control" placeholder="Search..." >
                             <button type="submit" class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -30,36 +30,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($admins as $admin)
+                        @foreach ($users as $user)
                             <tr>
-                                <td>{{ $admin->id }}</td>
+                                <td>{{ $user->id }}</td>
                                 <td>
-                                    @if($admin->name == null)
-                                        {{ $admin->nickName }}
+                                    @if($user->name == null)
+                                        {{ $user->nickName }}
                                     @endif
-                                    @if($admin->name !== null)
-                                        {{ $admin->name }}
+                                    @if($user->name !== null)
+                                        {{ $user->name }}
                                     @endif
                                 </td>
-                                <td>{{ $admin->email }}</td>
-                                <td>{{ $admin->phone }}</td>
-                                <td>{{ $admin->address }}</td>
-                                <td><span class="text-danger">{{ $admin->role }}</span></td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->address }}</td>
+                                <td><span class="text-danger">{{ $user->role }}</span></td>
                                 <td>
-                                    @if($admin->provider == "")
+                                    @if($user->provider == "")
                                         <small class="text-info"> sample login </small>
                                     @endif
-                                    @if($admin->provider == "google")
+                                    @if($user->provider == "google")
                                         <small class="text-info"> Google</small>
                                     @endif
-                                    @if($admin->provider == "github")
+                                    @if($user->provider == "github")
                                         <small class="text-info"> Github</small>
                                     @endif
                                 </td>
-                                <td>{{ $admin->created_at->format("d-m-Y") }}</td>
+                                <td>{{ $user->created_at->format("d-m-Y") }}</td>
                                 <td>
-                                    @if($admin->role !== "superAdmin" && Auth::user()->id !== $admin->id)
-                                        <a href="{{ route("adminList#delete",$admin->id) }}" class="btn btn-sm btn-danger w-100">Delete </a>
+                                    @if(Auth::user()->id !== $user->id)
+                                        <a href="{{ route("adminList#delete",$user->id) }}" class="btn btn-sm btn-danger w-100">Delete</a>
                                     @endif
                                 </td>
 
@@ -67,7 +67,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $admins->links('pagination::bootstrap-5') }}
+                {{ $users->links('pagination::bootstrap-5') }}
 
             </div>
         </div>

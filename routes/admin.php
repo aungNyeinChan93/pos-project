@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\adminListController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController2;
+use App\Http\Controllers\UserListController;
+use App\Http\Controllers\adminListController;
 
 Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::get("home", [AdminController::class, "index"])->name("adminHome")->middleware("admin");
@@ -47,6 +48,13 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::group(["middleware"=>"superadmin","prefix"=>"adminList"],function(){
         Route::get("list",[adminListController::class,"list"])->name("adminList#index");
         Route::get("delete/{user}",[adminListController::class,"delete"])->name("adminList#delete");
+
+    });
+    // user list
+    Route::group(["middleware"=>"superadmin","prefix"=>"userList"],function(){
+        Route::get("list",[UserListController::class,"list"])->name("userList#index");
+        Route::get("delete/{user}",[UserListController::class,"delete"])->name("userList#delete");
+
     });
 
 

@@ -135,10 +135,10 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Setting
-                                </a>
+                                </a> --}}
                                 @if(Auth::user()->role == "superAdmin")
                                     <a class="dropdown-item" href="{{ route("profile#adminAccCreate") }}">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -147,8 +147,12 @@
                                 @endif
                                 @if(Auth::user()->role == "superAdmin")
                                     <a class="dropdown-item" href="{{ route('adminList#index') }}">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
-                                        Manage Admin Account
+                                        <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                        Manage Admin List
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('userList#index') }}">
+                                        <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                        Manage User List
                                     </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('password#show') }}">
