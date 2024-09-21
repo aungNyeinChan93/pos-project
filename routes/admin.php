@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController2;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\adminListController;
+use App\Http\Controllers\ProductController;
 
 Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::get("home", [AdminController::class, "index"])->name("adminHome")->middleware("admin");
@@ -50,6 +51,7 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("delete/{user}",[adminListController::class,"delete"])->name("adminList#delete");
 
     });
+
     // user list
     Route::group(["middleware"=>"superadmin","prefix"=>"userList"],function(){
         Route::get("list",[UserListController::class,"list"])->name("userList#index");
@@ -57,8 +59,17 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
 
     });
 
+    // Product List
+    Route::group(["prefix"=>"products"],function(){
+        Route::get("createPage",[ProductController::class,"createPage"])->name("product#createPage");
+        Route::post("create",[ProductController::class,"create"])->name("product#create");
+        Route::get("listPage/{amount?}",[ProductController::class,"listPage"])->name("product#listPage");
+        Route::get("detail/{product}",[ProductController::class,"detail"])->name("product#detail");
+        Route::get("edit/{product}",[ProductController::class,"edit"])->name("product#edit");
+        Route::put("update/{product}",[ProductController::class,"update"])->name("product#update");
+        Route::delete("delete/{product}",[ProductController::class,"delete"])->name("product#delete");
 
-
+    });
 
 
 });

@@ -37,6 +37,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(count($categories) == 0)
+                            <tr>
+                                <td colspan="4" class="text-center"><span class="text-muted ">Empty Data...</span></td>
+                            </tr>
+                        @endif
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $category->id }}</td>

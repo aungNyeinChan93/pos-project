@@ -26,7 +26,7 @@ class CategoryController extends Controller
         ]);
         $category = Category::create($valitaded);
         Alert::alert('Category create', 'Create Success!' );
-        Mail::to(Auth::user()->email)->send(new CategoryMail($category));
+        // Mail::to(Auth::user()->email)->send(new CategoryMail($category));
         return back();
     }
 
