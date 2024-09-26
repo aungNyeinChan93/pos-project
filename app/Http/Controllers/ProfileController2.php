@@ -84,7 +84,6 @@ class ProfileController2 extends Controller
     // admin acc create page
     public function createPage(){
         return view("admin.profile.createAdminAccount");
-
     }
 
     // admin account create

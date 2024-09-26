@@ -86,10 +86,14 @@
                                     <div class="nav-item dropdown">
                                         <a href="{{ route("userHome") }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <i class="fas fa-user fa-2x"></i></a>
                                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                        <a href="cart.html" class="dropdown-item">User Info</a>
-                                        <a href="chackout.html" class="dropdown-item">Chackout</a>
+                                        <a href="{{ route("profile#showpage") }}" class="dropdown-item">User Info</a>
+                                        <a href="{{ route("profile#editUser") }}" class="dropdown-item">Edit Profile</a>
+                                        <a href="{{ route("profile#passwordChangePage") }}" class="dropdown-item">Change Password</a>
                                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                        <a href="404.html" class="dropdown-item">404 Page</a>
+                                        <form action="{{ url("logout") }}" method="post" class="dropdown-item">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Logout</button>
+                                        </form>
                                     </div>
                                 </div>
                             </a>
@@ -103,6 +107,8 @@
         <div class="container-fluid my-3 min-vh-100" >
 
         @yield('content')
+
+        @include('sweetalert::alert')
 
         </div>
 
@@ -215,5 +221,16 @@
     <!-- Template Javascript -->
     <script src="{{asset("user/js/main.js")}}"></script>
     </body>
+
+    <script>
+        function loadFile(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                let image = document.getElementById("output");
+                image.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 
 </html>
