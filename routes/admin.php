@@ -21,7 +21,6 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::delete("delete/{category}",[CategoryController::class,"delete"])->name("category#delete");
     });
 
-
     // Profile
     Route::prefix("profile")->group(function(){
         Route::get("passwordChangePage",[ProfileController2::class,"show"])->name("password#show");

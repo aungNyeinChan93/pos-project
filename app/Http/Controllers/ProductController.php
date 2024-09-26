@@ -100,9 +100,6 @@ class ProductController extends Controller
     }
 
 
-
-
-
     #######  Function  #######
 
     // productValidation

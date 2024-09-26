@@ -34,7 +34,7 @@
                             <img src="{{ asset("/products/$product->photo") }}" style="height:180px"
                                 class=" img-fluid w-100 p-4 object-contain">
                             <div class="d-flex justify-content-around my-4">
-                                <div class="h5   text-danger self-start">20000 mmk</div>
+                                <div class="h5   text-danger self-start">{{ $product->price }}</div>
                                 <div class="">
                                     <button type="button"
                                         class="btn btn-sm bg-secondary text-white position-relative rounded shadow-sm">

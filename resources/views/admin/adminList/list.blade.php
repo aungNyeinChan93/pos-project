@@ -55,7 +55,7 @@
                                     @if($admin->provider == "github")
                                         <small class="text-info"> Github</small>
                                     @endif
-                                </td>
+                                </td>   
                                 <td>{{ $admin->created_at->format("d-m-Y") }}</td>
                                 <td>
                                     @if($admin->role !== "superAdmin" && Auth::user()->id !== $admin->id)
