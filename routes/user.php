@@ -23,6 +23,8 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
     // products
     Route::group(["prefix"=>"products"],function(){
         Route::get("detail/{product}",[UserProductController::class,"detail"])->name("userProduct#detail");
+        Route::post("addCart",[UserProductController::class, "addCart"])->name("userProduct#addcart");
+        Route::get("cartPage",[UserProductController::class, "cartPage"])->name("userProduct#cartPage");
 
     });
 

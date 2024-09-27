@@ -57,26 +57,29 @@
                             <div class="">
                                 <p class="mb-4">{{ Str::limit($product->description, 50, '...') }}</p>
                             </div>
-                            <div class="input-group quantity mb-5" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
+                            <form action="{{ route("userProduct#addcart") }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="user_id"  value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <div class="input-group quantity mb-5" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" name="qty" class="form-control form-control-sm text-center border-0"
+                                        value="1">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0"
-                                    value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#"
-                                class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <button type="submit" href="#"
+                                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
+                            </form>
                         </div>
-
-
                         <div class="col-lg-12">
                             <nav>
                                 <div class="nav nav-tabs mb-3">
@@ -419,12 +422,12 @@
             @endif
 
             @if (count($relativeProducts) >= 4)
-                <div class="owl-carousel vegetable-carousel justify-content-center">
+                <div class="owl-carousel vegetable-carousel justify-content-center my-4">
                     @foreach ($relativeProducts as $relativeProduct)
-                        <div class="border border-primary rounded position-relative vesitable-item" style="height: 400px">
+                        <div class="border border-primary rounded position-relative vesitable-item " style="height: 400px">
                             <div class="vesitable-img" style="height: 200px">
                                 <img src="{{ asset("products/$relativeProduct->photo") }}"
-                                    class="img-fluid w-100 rounded-top" alt="">
+                                    class="img-fluid w-100 rounded-top p-2" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                                 style="top: 10px; right: 10px;">{{ $relativeProduct->categoryName }}</div>

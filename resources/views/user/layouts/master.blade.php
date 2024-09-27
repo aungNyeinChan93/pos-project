@@ -55,7 +55,7 @@
             </div> --}}
             <div class="container px-2">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">POS PROJECT</h1></a>
+                    <a href="{{ route("userHome") }}" class="navbar-brand"><h1 class="text-primary display-6">POS PROJECT</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
@@ -77,10 +77,10 @@
                         </div>
                         <div class="d-flex m-3 me-0">
                             {{-- <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button> --}}
-                            {{-- <a href="#" class="position-relative me-4 my-auto">
+                            <a href="{{ route("userProduct#cartPage") }}" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-                            </a> --}}
+                            </a>
                             <a href="#" class="my-auto">
                                     <span class="text-danger fs-6 fw-lighter ">{{ Auth::user()->name }}</span>
                                     <div class="nav-item dropdown">
@@ -104,14 +104,13 @@
         </div>
         <!-- Navbar End -->
 
-        <div class="container-fluid my-3 min-vh-100" >
+        <div class="container-fluid my-3 min-vh-100  " >
 
         @yield('content')
 
         @include('sweetalert::alert')
 
         </div>
-
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
@@ -204,8 +203,6 @@
         </div>
         <!-- Copyright End -->
 
-
-
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
@@ -232,5 +229,7 @@
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
+
+    @yield("js")
 
 </html>

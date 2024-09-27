@@ -60,7 +60,6 @@
     </div> --}}
     <!-- Hero End -->
 
-
     <!-- Featurs Section Start -->
     {{-- <div class="container-fluid featurs py-5">
         <div class="container py-5">
@@ -114,6 +113,7 @@
     </div> --}}
     <!-- Featurs Section End -->
 
+    {{-- alert --}}
 
     <!-- Fruits Shop Start-->
     <div class="container-fluid fruite py-5">
@@ -150,6 +150,13 @@
                     </div>
                 </div>
 
+                <div class="col-6 offset-3">
+                    @if(session("addCart"))
+                        <div class="alert alert-warning p-2 text-danger">
+                            {{ session("addCart") }}
+                        </div>
+                    @endif
+                </div>
 
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane fade show p-0 active">
