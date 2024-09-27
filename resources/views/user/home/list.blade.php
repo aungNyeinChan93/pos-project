@@ -207,25 +207,27 @@
                                     @foreach ($products as $product)
 
                                         <div class="col-md-12 col-lg-4 col-xl-3 "  >
-                                            <div class="rounded position-relative fruite-item ">
-                                                <div class="fruite-img" style="height: 200px">
-                                                    <img src="{{asset("/products/$product->photo") }}" class="img-fluid w-100 rounded-top object-cover" alt="">
-                                                </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{$product->categoryName}}</div>
-                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <h4>{{$product->name}}</h4>
-                                                    <div style="height:70px">
-                                                        <p>{{Str::limit($product->description,30,"...")}}</p>
+                                            <a href="{{ url("users/products/detail/".$product->id) }}">
+                                                <div class="rounded position-relative fruite-item ">
+                                                    <div class="fruite-img" style="height: 200px">
+                                                            <img src="{{asset("/products/$product->photo") }}" class="img-fluid w-100 rounded-top object-cover" alt="">
                                                     </div>
-                                                    <div class="row">
-                                                       <div class="d-flex justify-content-center mb-2">
-                                                            <span class="col-10 offset-1 text-center  text-danger fs-6 fw-bold mb-1">{{ $product->price }} MMK</span>
-                                                            <span class="bg-danger text-white rounded-1 shadow text-center px-2 py-1">{{ $product->stock }}</span>
-                                                       </div>
-                                                       <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Cart</a>
+                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{$product->categoryName}}</div>
+                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                        <h4>{{$product->name}}</h4>
+                                                        <div style="height:70px">
+                                                            <p>{{Str::limit($product->description,30,"...")}}</p>
+                                                        </div>
+                                                        <div class="row">
+                                                           <div class="d-flex justify-content-center mb-2">
+                                                                <span class="col-10 offset-1 text-center  text-danger fs-6 fw-bold mb-1">{{ $product->price }} MMK</span>
+                                                                <span class="bg-danger text-white rounded-1 shadow text-center px-2 py-1">{{ $product->stock }}</span>
+                                                           </div>
+                                                           <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Cart</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
 
                                     @endforeach

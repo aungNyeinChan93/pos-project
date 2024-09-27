@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserProductController;
 
 // Route::prefix('users')->group(function () {
 //     Route::get("/index",[UserController::class,"index"])->name("userHome");
@@ -18,5 +19,12 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
     Route::put("profile/update",[UserProfileController::class, "update"])->name("profile#updateUser");
     Route::get("profile/passwordChangePage",[UserProfileController::class, "passwordChangePage"])->name("profile#passwordChangePage");
     Route::put("profile/passwordUpdate",[UserProfileController::class, "passwordUpdate"])->name("profile#passwordUpdate");
+
+    // products
+    Route::group(["prefix"=>"products"],function(){
+        Route::get("detail/{product}",[UserProductController::class,"detail"])->name("userProduct#detail");
+
+    });
+
 });
 

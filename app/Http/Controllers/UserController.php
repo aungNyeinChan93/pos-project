@@ -13,7 +13,7 @@ class UserController extends Controller
     {
 
         $categories = Category::all();
-        $products = Product::select("products.name", "products.price", "products.description", "products.photo", "products.stock", "categories.name as categoryName")
+        $products = Product::select("products.id","products.name", "products.price", "products.description", "products.photo", "products.stock", "categories.name as categoryName")
             ->leftJoin("categories", "categories.id", "=", "products.category_id")
             ->when(request()->categoryId != null, function ($query) {
                 $query->where("products.category_id", "=", request()->categoryId);
