@@ -27,9 +27,9 @@ class CategoryController extends Controller
         $category = Category::create($valitaded);
         Alert::alert('Category create', 'Create Success!' );
 
-        defer(function() use($category){
-            Mail::to(Auth::user()->email)->send(new CategoryMail($category));
-        });
+        // defer(function() use($category){
+        //     Mail::to(Auth::user()->email)->send(new CategoryMail($category));
+        // });
 
         return back();
     }

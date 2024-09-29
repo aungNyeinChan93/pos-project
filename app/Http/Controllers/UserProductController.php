@@ -52,4 +52,6 @@ class UserProductController extends Controller
         // dd($total);
         return view("user.product.cart",compact("products","total"));
     }
+
+    // payment order
 }

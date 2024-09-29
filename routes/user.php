@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\UserProductController as ApiUserProductController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPaymentController;
 use App\Http\Controllers\UserProductController;
 
 // Route::prefix('users')->group(function () {
@@ -27,9 +28,14 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::post("addCart",[UserProductController::class, "addCart"])->name("userProduct#addcart");
         Route::get("cartPage",[UserProductController::class, "cartPage"])->name("userProduct#cartPage");
 
-        // Api
+        // Api for ajax request
         Route::get("list",[ApiUserProductController::class, "list"]);
         Route::get("cart/delete",[ApiUserProductController::class, "cartDelete"]);
+        Route::get("orderPage",[ApiUserProductController::class, "orderPage"]);
+
+        // payment
+        Route::get("payment",[UserPaymentController::class,"paymentPage"])->name("paymentPage");
+
     });
 
 });
