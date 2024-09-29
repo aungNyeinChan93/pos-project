@@ -230,7 +230,13 @@
                                                                 <span class="col-10 offset-1 text-center  text-danger fs-6 fw-bold mb-1">{{ $product->price }} MMK</span>
                                                                 <span class="bg-danger text-white rounded-1 shadow text-center px-2 py-1">{{ $product->stock }}</span>
                                                            </div>
-                                                           <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Cart</a>
+                                                           <form action="{{ route("userProduct#addcart") }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <input type="hidden" name="qty" value="1">
+                                                               <button type=submit class="w-100 btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Cart</button>
+                                                           </form>
                                                         </div>
                                                     </div>
                                                 </div>

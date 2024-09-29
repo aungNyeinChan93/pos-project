@@ -62,7 +62,8 @@
                                     <p class="mb-0 mt-4 total">{{ $product->price * $product->Qty }} MMK</p>
                                 </td>
                                 <td>
-                                    <button class="btn btn-md rounded-circle bg-light border mt-4" >
+                                    <input type="hidden" class="cart_id" value="{{ $product->cart_id }}">
+                                    <button class="btn btn-md rounded-circle bg-light border mt-4 remove-btn" >
                                         <i class="fa fa-times text-danger"></i>
                                     </button>
                                 </td>
@@ -75,7 +76,7 @@
             </div>
             <div class="mt-5">
                 <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
+                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" id="allProducts" type="button">Apply Coupon</button>
             </div>
             <div class="row g-4 justify-content-end">
                 <div class="col-8"></div>
@@ -140,15 +141,48 @@
                 finalResult();
             })
 
+            // delete cart-products
+            $(".remove-btn").click(function(){
+                $parentNode = $(this).parents("tr");
+                $cart_id = $parentNode.find(".cart_id").val();
+                $data = {
+                    "cartId":$cart_id,
+                }
+                $.ajax({
+                    type:"get",
+                    url:"/users/products/cart/delete",
+                    dataType:"json",
+                    data:$data,
+                    success:function(res){
+                        console.log(res.products);
+                        res.products == "" ? location.reload():"";
+                    }
+                });
+                $parentNode.remove();
+                finalResult();
+            })
+
             function finalResult(){
                 $total = 0;
                 $("#cartTable tbody tr").each(function(index,item){
-                    $total += parseInt($(item).find(".total").text().replace("MMK",""));
-                    // console.log($total);
-                    $("#subTotal").html(`${$total} MMK`)
-                    $("#netTotal").html(`${$total+10000} MMK`)
+                        $total += parseInt($(item).find(".total").text().replace("MMK",""));
+                        // console.log($total);
+                        $("#subTotal").html(`${$total} MMK`)
+                        $("#netTotal").html(`${$total+10000} MMK`)
                 })
             }
+
+            // all product
+            $("#allProducts").click(function(){
+                $.ajax({
+                    type :"get",
+                    url:"/users/products/list",
+                    dataType:"json",
+                    success:function(response){
+                        console.log(response);
+                    }
+                });
+            })
 
         })
     </script>

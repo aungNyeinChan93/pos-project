@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserProductController as ApiUserProductController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,9 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::post("addCart",[UserProductController::class, "addCart"])->name("userProduct#addcart");
         Route::get("cartPage",[UserProductController::class, "cartPage"])->name("userProduct#cartPage");
 
+        // Api
+        Route::get("list",[ApiUserProductController::class, "list"]);
+        Route::get("cart/delete",[ApiUserProductController::class, "cartDelete"]);
     });
 
 });

@@ -43,7 +43,7 @@ class UserProductController extends Controller
     public function cartPage(){
         $products = Product::select("products.name","carts.Qty","products.photo","products.price","products.id","carts.id as cart_id")
                 ->rightJoin("carts","carts.product_id","products.id")
-                // ->where("carts.user_id",Auth::user()->id)
+                ->where("carts.user_id",Auth::user()->id)
                 ->get();
         $total = 0;
         foreach($products as $product){
