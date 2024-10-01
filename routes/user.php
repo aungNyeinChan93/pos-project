@@ -35,6 +35,7 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
 
         // payment
         Route::get("payment",[UserPaymentController::class,"paymentPage"])->name("paymentPage");
+        Route::post("order",[UserPaymentController::class,"order"])->name("payment#order");
 
     });
 

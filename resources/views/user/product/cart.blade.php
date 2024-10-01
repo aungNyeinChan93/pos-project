@@ -194,6 +194,7 @@
                 $userId = $("#user_id").val();
                 $orderId = "anc_pos" + Math.floor(Math.random() * 100000)
                 $orderList = [];
+                $total_amount =$("#netTotal").text().replace("MMK","") *1;
                 // console.log($orderId);
 
                 $("#cartTable tbody tr").each(function(index, record) {
@@ -204,6 +205,7 @@
                         "orderId": $orderId,
                         "product_id": $product_id,
                         "qty": $qty,
+                        "total_amount":$total_amount,
                     });
                     // console.log($orderList);
                 })
@@ -215,7 +217,7 @@
                         order: $orderList
                     },
                     success: function(res) {
-                        if (res.message == "Order create success!") {
+                        if (res.message == "success") {
                             location.href = "/users/products/payment"
                         }
                         console.log(res);

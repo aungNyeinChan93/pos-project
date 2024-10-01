@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserProductController extends Controller
 {
@@ -44,23 +45,23 @@ class UserProductController extends Controller
     public function orderPage(Request $request)
     {
         // logger($request->all());
+        $orderArr = [];
         $orderLists = $request->order;
         logger($orderLists);
         foreach ($orderLists as $orderList) {
-            // logger($orderList["user_id"]);
-            Order::create([
+            array_push($orderArr, [
                 "user_id" => $orderList["user_id"],
                 "product_id" => $orderList["product_id"],
                 "amount" => $orderList["qty"],
-                "order_id"=>$orderList["orderId"],
+                "order_id" => $orderList["orderId"],
+                "total_amount" => $orderList["total_amount"],
                 "status" => 0,
-            ]); 
+            ]);
         }
-        $orders = Order::all();
+        Session::put("orderLists", $orderArr);
 
         return response()->json([
-            "message"=>"Order create success!",
-            "order"=>$orders,
-        ],200);
+            "message" => "success",
+        ], 200);
     }
 }
