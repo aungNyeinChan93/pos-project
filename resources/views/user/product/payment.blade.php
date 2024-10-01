@@ -25,30 +25,42 @@
                 <div class="card">
                     <div class="card-header">Payment Info</div>
                     <div class="card-body">
-                        <form action="{{ route("payment#order") }}" method="POST">
+                        <form action="{{ route("payment#order") }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row my-3">
                                 <div class="col">
-                                    <input type="text" name="name" placeholder="name" class="form-control">
+                                    <input type="text" readonly name="name" value="{{ Auth::user()->name }}" placeholder="name" class=" form-control @error("name")
+                                        is-invalid
+                                    @enderror">
                                 </div>
                                 <div class="col">
-                                    <input type="text" name="phone" placeholder="phone" class="form-control">
+                                    <input type="text" name="phone" value="{{ old("phone",Auth::user()->phone) }}" placeholder="phone" class="form-control @error("phone")
+                                        is-invalid
+                                    @enderror">
                                 </div>
                                 <div class="col">
-                                    <input type="text" name="address" placeholder="address" class="form-control">
+                                    <input type="text" name="address" value="{{ old("address",Auth::user()->address) }}" placeholder="address" class="form-control @error("address")
+                                        is-invalid
+                                    @enderror">
                                 </div>
                             </div>
                             <div class="row my-3">
                                 <div class="col">
-                                    <select name="payment" class="form-control">
+                                    <select name="payment" class="form-control @error("payment")
+                                        is-invalid
+                                    @enderror">
                                         <option value="">Choose Payment</option>
                                         @foreach($payments as $payment)
-                                            <option value="{{ $payment->id }}">{{ $payment->account_name }}</option>
+                                            <option value="{{ $payment->account_name }}" @if($payment->account_name == $payment->account_name)
+                                                selected
+                                            @endif>{{ $payment->account_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <input type="file" name="payment_image" class="form-control">
+                                    <input type="file" name="payment_image" class="form-control @error("payment_image")
+                                        is-invalid
+                                    @enderror">
                                 </div>
                             </div>
                             <div class="row">
