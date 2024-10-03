@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ route("order#list") }}" class="btn btn-sm btn-primary my-2">Back</a>
         <div class="row">
             <div class="col-6">
                 <div class="card p-2">

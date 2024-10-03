@@ -5,9 +5,21 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <div class="row ">
+                    <div class="col-4 offset-8">
+                        <form action="{{ route("order#list") }}" method="get" >
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input type="text" name="search" class="form-control" placeholder="Order Code " >
+                                <button type="submit" class="btn btn-outline-primary" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                              </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header p-3 h4 text-center text-danger fw-bolder shadow-sm">ORDER BOARD</div>
                 </div>
+
                 <table class="table table-bordered table-hover shadow-sm rounded">
                     <thead class="bg-primary text-white ">
                         <tr>
@@ -23,7 +35,13 @@
                             <tr>
                                 <td>{{ $order->created_at->format("d-m-Y h:m A") }}</td>
                                 <td><a href="{{ route("order#detail",$order->order_id) }}">{{ $order->order_id }}</a></td>
-                                <td>{{ $order->user->name }}</td>
+                                <td>
+                                    @if($order->user->name)
+                                        {{ $order->user->name }}
+                                    @else
+                                    {{ $order->user->nickName }}
+                                    @endif
+                                </td>
                                 <td>
                                     <select name="" class="form-control">
                                         <option value="0" @if($order->status ==0)
