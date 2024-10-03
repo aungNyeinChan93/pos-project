@@ -75,6 +75,9 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::group(["prefix"=>"orders"],function(){
         Route::get("list",[OrderController::class,"list"])->name("order#list");
         Route::get("detail/{order_id}",[OrderController::class,"detail"])->name("order#detail");
+        Route::get("changeStatus",[OrderController::class,"changeStatus"]);
+        Route::post("orderConfrim/{order_id}",[OrderController::class, "orderConfirm"])->name("order#orderConfirm");
+        Route::post("orderReject/{order_id}",[OrderController::class, "orderReject"])->name("order#orderReject");
     });
 
 

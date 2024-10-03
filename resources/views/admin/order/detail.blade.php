@@ -58,36 +58,65 @@
         </div>
         <div class="row mt-4">
             <div class="col">
-                <table class=" table table-bordered table-hover ">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Quality</th>
-                            <th>Product Price (Each)</th>
-                            <th>Total Price  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($orders as $order)
-                        <tr>
-                            <td>
-                                @if($order->user->name)
-                                    {{ $order->user->name }}
-                                @else
-                                    {{ $order->user->nickName }}
-                                @endif
-                            </td>
-                            <td>
-                                <img src="{{ asset("/products/".$order->product->photo) }}"  alt="product" class=" img-fluid w-25 rounded">
-                            </td>
-                            <td>{{ $order->amount }}</td>
-                            <td>{{ $order->product->price }} mmk</td>
-                            <td>{{ $order->amount*$order->product->price }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="card shadow-sm my-2">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="text-center ">Order Board </h4>
+                    </div>
+                    <table class=" table table-bordered table-hover text-start">
+                        <thead class="bg-primary text-white text-center p-2">
+                            <tr>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Quality</th>
+                                <th>Avaliable Stock</th>
+                                <th>Product Price (Each)</th>
+                                <th>Total Price  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                            <tr>
+                                <td>
+                                    @if($order->user->name)
+                                        {{ $order->user->name }}
+                                    @else
+                                        {{ $order->user->nickName }}
+                                    @endif
+                                </td>
+                                <td>
+                                    <img src="{{ asset("/products/".$order->product->photo) }}"  alt="product" class="img-fluid w-50 rounded">
+                                </td>
+                                <td>{{ $order->product->name }}</td>
+                                <td>{{ $order->amount }}</td>
+                                <td>{{ $order->product->stock }}</td>
+                                <td>{{ $order->product->price }} mmk</td>
+                                <td>{{ $order->amount*$order->product->price }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+
+               <div class="row">
+                <div class="col-3 offset-9">
+                    <div class="row my-2">
+                        <div class="col-6">
+                            <form action="{{ route("order#orderConfirm",$paymentHistory->order_id) }}" method="post">
+                                @csrf
+                                <input type="submit" class="btn btn-outline-primary me-1" value="Order Confrim">
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <form action="{{ route("order#orderReject",$paymentHistory->order_id) }}" method="post">
+                                @csrf
+                                <input type="submit" class="btn btn-outline-danger me-1" value="Order Reject">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+               </div>
             </div>
         </div>
     </div>

@@ -80,7 +80,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("order#list") }}"><i class="fa-solid fa-cart-shopping"></i><span>Order Board 
+                <a class="nav-link" href="{{ route("order#list") }}"><i class="fa-solid fa-cart-shopping"></i><span>Order Board
                     </span></a>
             </li>
 
@@ -193,6 +193,8 @@
 
                 <!-- Core plugin JavaScript-->
                 <script src=" {{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
                 <!-- Custom scripts for all pages-->
                 <script src=" {{ asset('admin/js/sb-admin-2.min.js') }}"></script>
@@ -214,6 +216,8 @@
                         reader.readAsDataURL(event.target.files[0]);
                     }
                 </script>
+
+                @yield("js")
 
 </body>
 

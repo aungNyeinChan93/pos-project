@@ -33,6 +33,7 @@
                     <tbody>
                         @foreach ($orders as $order)
                             <tr>
+                                <input type="hidden" name="order_id" class="order_id" value="{{ $order->order_id }}" >
                                 <td>{{ $order->created_at->format("d-m-Y h:m A") }}</td>
                                 <td><a href="{{ route("order#detail",$order->order_id) }}">{{ $order->order_id }}</a></td>
                                 <td>
@@ -42,8 +43,8 @@
                                     {{ $order->user->nickName }}
                                     @endif
                                 </td>
-                                <td>
-                                    <select name="" class="form-control">
+                                <td class="hi">
+                                    <select name="" class="form-control status">
                                         <option value="0" @if($order->status ==0)
                                             selected
                                         @endif>Pending</option>
@@ -75,5 +76,34 @@
             </div>
         </div>
     </div>
+
+    @section('js')
+        <script>
+
+            $(document).ready(function(){
+
+                // order-status change
+                $(".status").change(function(){
+                    $statusValue = $(this).val();
+                    $order_id = $(this).parents("tr").find(".order_id").val();
+                    $data ={
+                        "status":$statusValue,
+                        "order_id":$order_id,
+                    }
+
+                    $.ajax({
+                        type:"get",
+                        url:"/admins/orders/changeStatus",
+                        dataType:"json",
+                        data:$data,
+                        success:function(res){
+                            res.message == "success"? location.reload() :"";
+                        }
+                    });
+
+                });
+            });
+        </script>
+    @endsection
 
 @endsection
