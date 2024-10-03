@@ -74,6 +74,7 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     // order
     Route::group(["prefix"=>"orders"],function(){
         Route::get("list",[OrderController::class,"list"])->name("order#list");
+        Route::get("detail/{order_id}",[OrderController::class,"detail"])->name("order#detail");
     });
 
 

@@ -22,7 +22,7 @@
                         @foreach ($orders as $order)
                             <tr>
                                 <td>{{ $order->created_at->format("d-m-Y h:m A") }}</td>
-                                <td>{{ $order->order_id }}</td>
+                                <td><a href="{{ route("order#detail",$order->order_id) }}">{{ $order->order_id }}</a></td>
                                 <td>{{ $order->user->name }}</td>
                                 <td>
                                     <select name="" class="form-control">
