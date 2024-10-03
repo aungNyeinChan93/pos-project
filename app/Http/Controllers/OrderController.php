@@ -18,7 +18,7 @@ class OrderController extends Controller
             })
             ->groupBy("order_id")
             ->orderBy("created_at", "desc")
-            ->paginate();
+            ->paginate(5);
         return view("admin.order.list", compact("orders"));
     }
 
