@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController2;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\adminListController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
@@ -68,6 +69,11 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::put("update/{product}",[ProductController::class,"update"])->name("product#update");
         Route::delete("delete/{product}",[ProductController::class,"delete"])->name("product#delete");
 
+    });
+
+    // order
+    Route::group(["prefix"=>"orders"],function(){
+        Route::get("list",[OrderController::class,"list"])->name("order#list");
     });
 
 
