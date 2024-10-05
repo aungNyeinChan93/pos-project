@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +24,13 @@ class UserProductController extends Controller
             ->where("products.id","!=",$product->id)
             ->get();
 
+
         // dd($relativeProducts->toArray());
 
-        return view("user.product.detail", compact('product',"relativeProducts"));
+        $comments= Comment::where("product_id",$product->id)->get();
+        // dd($comment);
+
+        return view("user.product.detail", compact('product',"relativeProducts","comments"));
     }
 
     // add to cart

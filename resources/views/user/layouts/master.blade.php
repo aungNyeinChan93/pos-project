@@ -27,6 +27,9 @@
 
         <!-- Template Stylesheet -->
         <link href="{{asset("user/css/style.css")}} " rel="stylesheet">
+
+        {{-- custome css --}}
+        <link rel="stylesheet" href="{{ asset("user/css/custome.css") }}">
     </head>
 
     <body>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\UserProductController as ApiUserProductController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -38,6 +40,10 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::post("order",[UserPaymentController::class,"order"])->name("payment#order");
         Route::get("order",[UserPaymentController::class,"orderList"])->name("payment#orderList");
 
+
+        // comment
+        Route::post("comment",[CommentController::class,"create"])->name("comment#create");
+        Route::post("rating",[RatingController::class,"create"])->name("rating#create");
 
     });
 
