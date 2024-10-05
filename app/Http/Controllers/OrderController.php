@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\PaymentHistory;
+use PhpParser\Node\Stmt\Break_;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
@@ -29,8 +30,14 @@ class OrderController extends Controller
     {
         $orders = Order::with("user", "product")->where("order_id", $order_id)->get();
         $paymentHistory = PaymentHistory::where("order_id", $order_id)->first();
-        return view("admin.order.detail", compact("orders", "paymentHistory"));
+
+        $status = $orders->filter(callback: function($order){
+            return $order->amount > $order->product->stock;
+        });
+        // dd(count($status));
+        return view("admin.order.detail", compact("orders", "paymentHistory","status"));
     }
+
 
     // order status change
     public function changeStatus(Request $request)
@@ -46,6 +53,7 @@ class OrderController extends Controller
 
     }
 
+
     // order confirm
     public function orderConfirm(Request $request, $order_id)
     {
@@ -58,7 +66,7 @@ class OrderController extends Controller
                 Order::where("order_id", $order_id)->update([
                     "status" => 1,
                 ]);
-                Product::where("id", $order->product->id)->decrement("stock", $order->amount);
+                Product::where("id", operator: $order->product->id)->decrement("stock", $order->amount);
                 Alert::alert('Order Confirm', 'Order Confirmation Success!');
             } else {
                 Alert::alert('Alert', 'Only pending status need to confirm order');
@@ -69,16 +77,19 @@ class OrderController extends Controller
 
     }
 
+    
     // order reject
     public function orderReject(Request $request, $order_id)
     {
         $orders = Order::with("user", "product")->where("order_id", $order_id)->get();
         $orders->map(function ($order) use ($order_id) {
-            $order->where("order_id", $order_id)->update([
-                "status" => 2,
-            ]);
+            if ($order->status != 1) {
+                $order->where("order_id", $order_id)->update([
+                    "status" => 2,
+                ]);
+                Alert::alert('Reject Orders', 'Order was Rejected ');
+            }
         });
-        Alert::alert('Reject Orders', 'Order was Rejected ');
         return to_route("order#list");
     }
 }

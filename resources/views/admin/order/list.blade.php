@@ -44,7 +44,7 @@
                                     @endif
                                 </td>
                                 <td class="hi">
-                                    <select name="" class="form-control status">
+                                    <select name="status" class="form-control status">
                                         <option value="0" @if($order->status ==0)
                                             selected
                                         @endif>Pending</option>
