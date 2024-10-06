@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
@@ -85,6 +86,12 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::group(["prefix"=>"saleInfo"],function(){
         Route::get("page",[SaleInfoController::class,"infoPage"])->name("saleInfo#page");
         Route::get("detail/{order_id}",[SaleInfoController::class,"detail"])->name("saleInfo#detail");
+    });
+
+    // contact info
+    Route::group(["prefix"=>"contact"],function(){
+        Route::get("index",[AdminContactController::class,"index"])->name("adminContact#index");
+        Route::delete("delete/{contact}",[AdminContactController::class,"delete"])->name("adminContact#delete");
     });
 
 

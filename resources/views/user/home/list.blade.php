@@ -118,6 +118,17 @@
     <!-- Fruits Shop Start-->
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    @if (session('contact'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ session("contact") }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    @endif
+                </div>
+            </div>
             <div class="tab-class text-center">
                 <div class="row g-4">
                     <div class="col-lg-3 text-start">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\UserProductController as ApiUserProductController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +45,12 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         // comment
         Route::post("comment",[CommentController::class,"create"])->name("comment#create");
         Route::post("rating",[RatingController::class,"create"])->name("rating#create");
-
     });
 
+    // contact
+    Route::group(["prefix"=>"contact"],function(){
+        Route::get("index",[ContactController::class,"index"])->name("contact#index");
+        Route::post("create",[ContactController::class,"create"])->name("contact#create");
+    });
 });
 
