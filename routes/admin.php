@@ -9,6 +9,7 @@ use App\Http\Controllers\UserListController;
 use App\Http\Controllers\adminListController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleInfoController;
 
 Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
     Route::get("home", [AdminController::class, "index"])->name("adminHome")->middleware("admin");
@@ -78,6 +79,12 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("changeStatus",[OrderController::class,"changeStatus"]);
         Route::post("orderConfrim/{order_id}",[OrderController::class, "orderConfirm"])->name("order#orderConfirm");
         Route::post("orderReject/{order_id}",[OrderController::class, "orderReject"])->name("order#orderReject");
+    });
+
+    // Sale Information
+    Route::group(["prefix"=>"saleInfo"],function(){
+        Route::get("page",[SaleInfoController::class,"infoPage"])->name("saleInfo#page");
+        Route::get("detail/{order_id}",[SaleInfoController::class,"detail"])->name("saleInfo#detail");
     });
 
 

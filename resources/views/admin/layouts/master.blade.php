@@ -76,7 +76,7 @@
             @endif
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
+                <a class="nav-link" href="{{ route("saleInfo#page") }}"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
             </li>
 
             <li class="nav-item">
