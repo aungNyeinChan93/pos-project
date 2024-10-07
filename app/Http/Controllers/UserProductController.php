@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,12 +26,18 @@ class UserProductController extends Controller
             ->get();
 
 
-        // dd($relativeProducts->toArray());
-
         $comments= Comment::where("product_id",$product->id)->get();
         // dd($comment);
 
-        return view("user.product.detail", compact('product',"relativeProducts","comments"));
+        $avgRating = number_format(Rating::where("product_id",$product->id)->avg("count"));
+        // dd($avgRating);
+
+        $userRating = Rating::where("product_id",$product->id)->where("user_id",Auth::user()->id)->first();
+        $userRating = $userRating == null ? null : number_format($userRating->count);
+        // dd($userRating);
+
+
+        return view("user.product.detail", compact('product',"relativeProducts","comments","avgRating","userRating"));
     }
 
     // add to cart
@@ -41,6 +48,7 @@ class UserProductController extends Controller
             "product_id"=>$request->product_id,
             "Qty"=>$request->qty,
         ]);
+
         return to_route("userHome")->with("addCart","Products added to cart");
     }
 

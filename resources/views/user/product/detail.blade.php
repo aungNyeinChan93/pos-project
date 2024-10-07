@@ -36,14 +36,14 @@
                         <div class="col">
                             @if (session('rating'))
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>{{ session("rating") }}</strong>
+                                    <strong>{{ session('rating') }}</strong>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
                             @endif
                         </div>
                     </div>
-                    
+
                     <a href="{{ route('userHome') }} " class="btn btn-sm btn-outline-primary my-2 ">Home</a>
                     <div class="row g-4">
 
@@ -62,11 +62,15 @@
                             <p class="mb-3">Category: {{ $product->categoryName }}</p>
                             <h5 class="fw-bold mb-3">{{ $product->price }} mmk</h5>
                             <div class="d-flex mb-4">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
+
+                                @for ($i = 0; $i < $avgRating; $i++)
+                                    <i class="fa fa-star text-secondary"></i>
+                                @endfor
+
+                                @for ($j = $avgRating; $j < 5; $j++)
+                                    <i class="fa fa-star"></i>
+                                @endfor
+
                             </div>
 
                             <div class="">
@@ -117,25 +121,40 @@
                                             <div class="modal-body">
                                                 <div class="rating-css">
                                                     <div class="star-icon">
-                                                        <input type="radio" name="rating" value="1" checked
-                                                            id="rating1">
-                                                        <label for="rating1"><i class="fa fa-star"></i></label>
+                                                        @if ($userRating == null)
+                                                            <input type="radio" name="rating" value="1" checked
+                                                                id="rating1">
+                                                            <label for="rating1"><i class="fa fa-star"></i></label>
 
-                                                        <input type="radio" name="rating" value="2"
-                                                            id="rating2">
-                                                        <label for="rating2"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" name="rating" value="2"
+                                                                id="rating2">
+                                                            <label for="rating2"><i class="fa fa-star"></i></label>
 
-                                                        <input type="radio" name="rating" value="3"
-                                                            id="rating3">
-                                                        <label for="rating3"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" name="rating" value="3"
+                                                                id="rating3">
+                                                            <label for="rating3"><i class="fa fa-star"></i></label>
 
-                                                        <input type="radio" name="rating" value="4"
-                                                            id="rating4">
-                                                        <label for="rating4"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" name="rating" value="4"
+                                                                id="rating4">
+                                                            <label for="rating4"><i class="fa fa-star"></i></label>
 
-                                                        <input type="radio" name="rating" value="5"
-                                                            id="rating5">
-                                                        <label for="rating5"><i class="fa fa-star"></i></label>
+                                                            <input type="radio" name="rating" value="5"
+                                                                id="rating5">
+                                                            <label for="rating5"><i class="fa fa-star"></i></label>
+                                                        @else
+                                                            @for ($i = 1; $i <= $userRating; $i++)
+                                                                <input type="radio" name="rating" value="{{ $i }}"
+                                                                    checked id="rating{{ $i }}">
+                                                                <label for="rating{{ $i }}"><i class="fa fa-star"></i></label>
+                                                            @endfor
+
+                                                            @for ($j = $userRating+1; $j <= 5; $j++)
+                                                                <input type="radio" name="rating" value="{{ $j }}"
+                                                                    id="rating{{ $j }}">
+                                                                <label for="rating{{ $j }}"><i class="fa fa-star"></i></label>
+                                                            @endfor
+                                                        @endif
+
                                                     </div>
                                                 </div>
 
@@ -163,7 +182,8 @@
                                         aria-selected="true">Description </button>
                                     <button class="nav-link border-white border-bottom-0" type="button" role="tab"
                                         id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
-                                        aria-controls="nav-mission" aria-selected="false">Comments</button>
+                                        aria-controls="nav-mission" aria-selected="false">Comments <small
+                                            class="btn btn-sm btn-secondary rounded-pill shadow-sm">{{ count($comments) }}</small></button>
                                 </div>
                             </nav>
                             <div class="tab-content mb-5">

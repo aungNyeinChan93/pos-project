@@ -44,6 +44,8 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
 
         // comment
         Route::post("comment",[CommentController::class,"create"])->name("comment#create");
+
+        // rating
         Route::post("rating",[RatingController::class,"create"])->name("rating#create");
     });
 
@@ -52,5 +54,7 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::get("index",[ContactController::class,"index"])->name("contact#index");
         Route::post("create",[ContactController::class,"create"])->name("contact#create");
     });
+
+
 });
 

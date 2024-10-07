@@ -52,6 +52,9 @@ class UserPaymentController extends Controller
         // dd($paymentHistoriesData);
         PaymentHistory::create($paymentHistoriesData);
 
+        // cart_session data delete
+        Session::forget("count_Cart");
+
         // create order
         $orderLists = Session::get("orderLists");
         // dd($orderLists);

@@ -17,9 +17,7 @@ class RatingController extends Controller
             "user_id"=>Auth::user()->id,
             "count"=> $request->rating
         ]);
-
-
-
         return back()->with("rating","You have $request->rating star rated now!");
+        
     }
 }

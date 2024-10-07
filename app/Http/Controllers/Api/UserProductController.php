@@ -59,6 +59,8 @@ class UserProductController extends Controller
             ]);
         }
         Session::put("orderLists", $orderArr);
+        session()->forget("count_cart");
+
 
         return response()->json([
             "message" => "success",
