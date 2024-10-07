@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActionLog;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Payment;
@@ -24,8 +25,6 @@ class UserPaymentController extends Controller
     // order product
     public function order(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
             "name" => "required",
             "phone" => "required",
@@ -43,6 +42,14 @@ class UserPaymentController extends Controller
             "total_amount" => $request->total_amount,
         ];
 
+        // action-log
+        ActionLog::create([
+            "user_id"=>Auth::user()->id,
+            "product_id"=>1,
+            "action_status"=>"order-create"
+        ]);
+
+
         // create payment history
         if ($request->hasFile("payment_image")) {
             $fileName = uniqid() . $request->file('payment_image')->getClientOriginalName();
@@ -57,7 +64,7 @@ class UserPaymentController extends Controller
 
         // create order
         $orderLists = Session::get("orderLists");
-        // dd($orderLists);
+
         foreach ($orderLists as $order) {
             Order::create([
                 "user_id" => $order["user_id"],
@@ -79,7 +86,6 @@ class UserPaymentController extends Controller
     // order list
     public function orderList()
     {
-        // dd("order list");
         $orders = Order::where("user_id", Auth::user()->id)
             ->groupBy("order_id")
             ->orderBy("created_at", "desc")

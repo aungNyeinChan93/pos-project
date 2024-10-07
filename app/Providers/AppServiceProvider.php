@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
+use App\Policies\CommnetPolicy;
 use Illuminate\Support\Facades\App;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -27,4 +29,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
     }
+
+    // protected $policies = [
+    //     Comment::class => CommnetPolicy::class,
+    // ];
 }

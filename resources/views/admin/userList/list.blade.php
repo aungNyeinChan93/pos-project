@@ -69,6 +69,7 @@
                 </table>
                 {{ $users->links('pagination::bootstrap-5') }}
 
+                <a href="{{ route("adminHome") }}" class="btn btn-outline-primary"> Back</a>
             </div>
         </div>
     </div>

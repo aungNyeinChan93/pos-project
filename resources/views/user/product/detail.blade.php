@@ -1,10 +1,6 @@
 @extends('user.layouts.master')
 
 @section('content')
-
-
-
-
     <!-- Modal Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
@@ -25,9 +21,7 @@
     </div>
     <!-- Modal Search End -->
 
-
     <!-- Single Product Start -->
-
     <div class="container-fluid py-5 mt-5">
         <div class="container py-5">
             <div class="row g-4 mb-5">
@@ -44,7 +38,8 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('userHome') }} " class="btn btn-sm btn-outline-primary my-2 ">Home</a>
+                    <a href="{{ route('userHome') }} " class="btn btn-sm btn-outline-primary my-2 ">Home</a> >>
+                    <a href="" class="btn btn-sm btn-secondary my-2">Total View Counts {{ $total_viewCount }}</a>
                     <div class="row g-4">
 
                         <div class="col-lg-6">
@@ -59,7 +54,11 @@
                             <h4 class="fw-bold mb-3 fs-2">{{ $product->name }}</h4>
                             <h4 class="mb-3"><em class="fs-5">Avaliable Stock</em> <span class="text-primary fs-3">(
                                     {{ $product->stock }} pcs ) </span></h4>
-                            <p class="mb-3">Category: {{ $product->categoryName }}</p>
+                            <h5 class="mb-3 ">
+                                <span>Category: <strong class="text-primary">{{ $product->categoryName }}</strong> </span>
+                                <span class="ms-4 text-danger"><i class="fa-regular fa-eye"></i>
+                                    {{ count($user_viewCount) }} </span>
+                            </h5>
                             <h5 class="fw-bold mb-3">{{ $product->price }} mmk</h5>
                             <div class="d-flex mb-4">
 
@@ -143,15 +142,19 @@
                                                             <label for="rating5"><i class="fa fa-star"></i></label>
                                                         @else
                                                             @for ($i = 1; $i <= $userRating; $i++)
-                                                                <input type="radio" name="rating" value="{{ $i }}"
-                                                                    checked id="rating{{ $i }}">
-                                                                <label for="rating{{ $i }}"><i class="fa fa-star"></i></label>
+                                                                <input type="radio" name="rating"
+                                                                    value="{{ $i }}" checked
+                                                                    id="rating{{ $i }}">
+                                                                <label for="rating{{ $i }}"><i
+                                                                        class="fa fa-star"></i></label>
                                                             @endfor
 
-                                                            @for ($j = $userRating+1; $j <= 5; $j++)
-                                                                <input type="radio" name="rating" value="{{ $j }}"
+                                                            @for ($j = $userRating + 1; $j <= 5; $j++)
+                                                                <input type="radio" name="rating"
+                                                                    value="{{ $j }}"
                                                                     id="rating{{ $j }}">
-                                                                <label for="rating{{ $j }}"><i class="fa fa-star"></i></label>
+                                                                <label for="rating{{ $j }}"><i
+                                                                        class="fa fa-star"></i></label>
                                                             @endfor
                                                         @endif
 
@@ -196,20 +199,29 @@
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
                                     @foreach ($comments as $comment)
-                                        <div class="d-flex">
-                                            <img src="{{ asset('profile/' . $comment->user->profile_image) }}"
-                                                class="img-fluid object-cover rounded-circle p-3"
-                                                style="width: 100px; height: 100px;" alt="">
+                                        <div class="d-flex justify-content-between">
                                             <div class="">
-                                                <p class="mb-2" style="font-size: 14px;">
-                                                    {{ $comment->created_at->diffForHumans() }}</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5>{{ $comment->user->name != null ? $comment->user->name : $comment->user->nickName }}
-                                                    </h5>
+                                                <img src="{{ asset('profile/' . $comment->user->profile_image) }}"
+                                                    class="img-fluid object-cover rounded-circle p-3"
+                                                    style="width: 100px; height: 100px;" alt="">
+                                                <div class="">
+                                                    <p class="mb-2" style="font-size: 14px;">
+                                                        {{ $comment->created_at->diffForHumans() }}</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h5>{{ $comment->user->name != null ? $comment->user->name : $comment->user->nickName }}
+                                                        </h5>
+                                                    </div>
+                                                    <p>{{ $comment->comment }}</p>
                                                 </div>
-                                                <p>{{ $comment->comment }}</p>
                                             </div>
-
+                                            <div class="pt-4">
+                                                @can('delete', $comment)
+                                                    <form action="{{ route('comment#delete', $comment->id) }}" method="POST">
+                                                        @csrf
+                                                        <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                                                    </form>
+                                                @endcan
+                                            </div>
                                         </div>
                                         <hr>
                                     @endforeach
@@ -262,182 +274,10 @@
                         </form>
                     </div>
                 </div>
-                {{-- <div class="col-lg-4 col-xl-3">
-                    <div class="row g-4 fruite">
-                        <div class="col-lg-12">
-                            <div class="input-group w-100 mx-auto d-flex mb-4">
-                                <input type="search" class="form-control p-3" placeholder="keywords"
-                                    aria-describedby="search-icon-1">
-                                <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                            </div>
-                            <div class="mb-4">
-                                <h4>Categories</h4>
-                                <ul class="list-unstyled fruite-categorie">
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                            <span>(3)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                            <span>(2)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                            <span>(8)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h4 class="mb-4">Featured products</h4>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-1.jpg" class="img-fluid rounded" alt="Image">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center my-4">
-                                <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="position-relative">
-                                <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                    <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
 
+
+            {{-- related product carts --}}
             @if (count($relativeProducts) >= 1)
                 <h1 class="fw-bold mb-0 text-primary">Related Products</h1>
             @endif
@@ -448,8 +288,10 @@
                         <div class="border border-primary rounded position-relative vesitable-item "
                             style="height: 400px">
                             <div class="vesitable-img" style="height: 200px">
-                                <img src="{{ asset("products/$relativeProduct->photo") }}"
-                                    class="img-fluid w-100 rounded-top p-2" alt="">
+                                <a href="{{ route('userProduct#detail', $relativeProduct->id) }}">
+                                    <img src="{{ asset("products/$relativeProduct->photo") }}"
+                                        class="img-fluid w-100 rounded-top p-2" alt="">
+                                </a>
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                                 style="top: 10px; right: 10px;">{{ $relativeProduct->categoryName }}</div>
@@ -458,9 +300,15 @@
                                 <p>{{ Str::limit($relativeProduct->description, 20, '...') }}</p>
                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                     <p class="text-dark fs-5 fw-bold">{{ $relativeProduct->price }} MMK</p>
-                                    <a href="#"
-                                        class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    <form action="{{ route('userProduct#addcart') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="product_id" value="{{ $relativeProduct->id }}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type=submit
+                                            class="w-100 btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                class="fa fa-shopping-bag me-2 text-primary"></i> Cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -474,8 +322,10 @@
                                 <div class="border border-primary rounded position-relative vesitable-item"
                                     style="height: 400px">
                                     <div class="vesitable-img" style="height: 200px">
-                                        <img src="{{ asset("products/$relativeProduct->photo") }}"
-                                            class="img-fluid w-100 rounded-top" alt="">
+                                        <a href="{{ route('userProduct#detail', $relativeProduct->id) }}">
+                                            <img src="{{ asset("products/$relativeProduct->photo") }}"
+                                                class="img-fluid w-100 rounded-top" alt="">
+                                        </a>
                                     </div>
                                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                                         style="top: 10px; right: 10px;">{{ $relativeProduct->categoryName }}</div>
@@ -484,9 +334,16 @@
                                         <p>{{ Str::limit($relativeProduct->description, 20, '...') }}</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold">{{ $relativeProduct->price }} MMK</p>
-                                            <a href="#"
-                                                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                            <form action="{{ route('userProduct#addcart') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                <input type="hidden" name="product_id"
+                                                    value="{{ $relativeProduct->id }}">
+                                                <input type="hidden" name="qty" value="1">
+                                                <button type=submit
+                                                    class="w-100 btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Cart</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

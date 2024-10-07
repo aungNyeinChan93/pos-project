@@ -47,7 +47,6 @@ class UserController extends Controller
         // added-card data noti
         $count_Cart = count(Cart::where("user_id", Auth::user()->id)->get());
         session()->put("count_Cart", $count_Cart);
-        // dd(session("count_Cart"));
 
         // pending-order noti
         $pendingOrders = Order::where("user_id", Auth::user()->id)
@@ -55,8 +54,7 @@ class UserController extends Controller
             ->groupBy("order_id")
             ->get();
         Session::put("pending_order",$pendingOrders);
-        // dd(count(session("pending_order")));
-
+            
         return view("user.home.list", compact("products", "categories"));
 
     }

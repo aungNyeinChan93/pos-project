@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\AdminContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -93,6 +94,11 @@ Route::group(["prefix" => "admins", "middleware" => ["admin"]], function () {
         Route::get("index",[AdminContactController::class,"index"])->name("adminContact#index");
         Route::delete("delete/{contact}",[AdminContactController::class,"delete"])->name("adminContact#delete");
     });
+
+    // comment
+    Route::get("comment",[AdminCommentController::class,"index"])->name("adminComment#index");
+    Route::post("comment/{comment}",[AdminCommentController::class,"detail"])->name("adminComment#detail");
+    Route::delete("comment/{comment}",[AdminCommentController::class,"delete"])->name("adminComment#delete");
 
 
 });

@@ -41,9 +41,9 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::post("order",[UserPaymentController::class,"order"])->name("payment#order");
         Route::get("order",[UserPaymentController::class,"orderList"])->name("payment#orderList");
 
-
         // comment
         Route::post("comment",[CommentController::class,"create"])->name("comment#create");
+        Route::post("comment/{comment}",[CommentController::class,"delete"])->name("comment#delete");
 
         // rating
         Route::post("rating",[RatingController::class,"create"])->name("rating#create");

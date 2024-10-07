@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActionLog;
 use App\Models\Cart;
 use App\Models\Comment;
 use App\Models\Product;
@@ -26,7 +27,7 @@ class UserProductController extends Controller
             ->get();
 
 
-        $comments= Comment::where("product_id",$product->id)->get();
+        $comments= Comment::where("product_id",$product->id)->orderBy("created_at","desc")->get();
         // dd($comment);
 
         $avgRating = number_format(Rating::where("product_id",$product->id)->avg("count"));
@@ -36,8 +37,21 @@ class UserProductController extends Controller
         $userRating = $userRating == null ? null : number_format($userRating->count);
         // dd($userRating);
 
+        ActionLog::create([
+            "user_id" => Auth::user()->id,
+            "product_id" =>$product->id,
+            "action_status"=> "detail-view"
+        ]);
 
-        return view("user.product.detail", compact('product',"relativeProducts","comments","avgRating","userRating"));
+
+        $user_viewCount = ActionLog::where("product_id",$product->id)->where("action_status","detail-view")->groupBy("user_id")->get();
+        // dd(count($user_viewCount));
+
+        $total_viewCount = ActionLog::where("product_id",$product->id)->where("action_status","detail-view")->count();
+        // dd($total_viewCount);
+
+
+        return view("user.product.detail", compact('product',"relativeProducts","comments","avgRating","userRating","user_viewCount","total_viewCount"));
     }
 
     // add to cart
@@ -48,6 +62,13 @@ class UserProductController extends Controller
             "product_id"=>$request->product_id,
             "Qty"=>$request->qty,
         ]);
+
+        ActionLog::create([
+            "user_id" => Auth::user()->id,
+            "product_id" =>$request->product_id,
+            "action_status"=> "cart-add"
+        ]);
+
 
         return to_route("userHome")->with("addCart","Products added to cart");
     }
@@ -66,5 +87,4 @@ class UserProductController extends Controller
         return view("user.product.cart",compact("products","total"));
     }
 
-    // payment order
 }
