@@ -85,9 +85,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
+                <a class="nav-link" href="{{ route("profile#page") }}"><i class="fa-solid fa-gear"></i></i><span>Setting</span></a>
             </li>
-
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('password#show') }}"><i
                         class="fa-solid fa-lock"></i></i></i><span>Change Password

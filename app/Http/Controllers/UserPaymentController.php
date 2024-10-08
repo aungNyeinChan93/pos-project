@@ -92,6 +92,14 @@ class UserPaymentController extends Controller
             ->get();
         return view("user.product.orderList",compact("orders"));
     }
+
+    // order detail
+    public function detail($order_id){
+        $orders = Order::where("order_id",$order_id)->get();
+        $totalAmount = PaymentHistory::where("order_id",$order_id)->first("total_amount");
+        // dd($totalAmount->total_amount);
+        return view("user.product.orderDetail",compact("orders","totalAmount"));
+    }
 }
 
 

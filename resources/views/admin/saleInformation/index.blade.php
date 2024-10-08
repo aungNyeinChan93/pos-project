@@ -33,6 +33,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <a href="{{ route("adminHome") }}" class="btn btn-sm btn-primary">Back</a>
                     </div>
                 </div>
             </div>

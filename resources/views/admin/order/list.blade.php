@@ -6,7 +6,12 @@
         <div class="row">
             <div class="col">
                 <div class="row ">
-                    <div class="col-4 offset-8">
+                    <div class="col d-flex justify-content-between ">
+                        <div>
+                            <a href="{{ url("admins/orders/list?status=1") }}" class="btn btn-primary" style="width: 100px"> Confirm</a>
+                            <a href="{{ url("admins/orders/list?status=pending") }}" class="btn btn-warning" style="width: 100px"> Pending</a>
+                            <a href="{{ url("admins/orders/list?status=2") }}" class="btn btn-danger" style="width: 100px"> Reject</a>
+                        </div>
                         <form action="{{ route("order#list") }}" method="get" >
                             @csrf
                             <div class="input-group mb-3">
@@ -16,6 +21,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="card">
                     <div class="card-header p-3 h4 text-center text-danger fw-bolder shadow-sm">ORDER BOARD</div>
                 </div>
@@ -35,7 +41,7 @@
                             <tr>
                                 <input type="hidden" name="order_id" class="order_id" value="{{ $order->order_id }}" >
                                 <td>{{ $order->created_at->format("d-m-Y h:m A") }}</td>
-                                <td><a href="{{ route("order#detail",$order->order_id) }}">{{ $order->order_id }}</a></td>
+                                <td><a href="{{ route("order#detail",$order->order_id) }}" class=' text-decoration-none'>{{ $order->order_id }}</a></td>
                                 <td>
                                     @if($order->user->name)
                                         {{ $order->user->name }}

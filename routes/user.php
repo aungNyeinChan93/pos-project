@@ -36,10 +36,11 @@ Route::group(["prefix"=>"users","middleware"=>["auth","user"]],function(){
         Route::get("cart/delete",[ApiUserProductController::class, "cartDelete"]);
         Route::get("orderPage",[ApiUserProductController::class, "orderPage"]);
 
-        // payment
+        // payment and order
         Route::get("payment",[UserPaymentController::class,"paymentPage"])->name("paymentPage");
         Route::post("order",[UserPaymentController::class,"order"])->name("payment#order");
         Route::get("order",[UserPaymentController::class,"orderList"])->name("payment#orderList");
+        Route::get("order/{order_id}",[UserPaymentController::class,"detail"])->name("payment#detail");
 
         // comment
         Route::post("comment",[CommentController::class,"create"])->name("comment#create");

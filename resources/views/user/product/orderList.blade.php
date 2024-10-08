@@ -26,7 +26,7 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td class="p-3">{{ $order->created_at->format('d-m_Y') }}</td>
-                                        <td>{{ $order->order_id }}</td>
+                                        <td><a href="{{ route("payment#detail",$order->order_id) }}">{{ $order->order_id }}</a></td>
                                         <td class="">
                                             @if ($order->status == 0)
                                                 <span class="btn btn-sm btn-warning shadow-sm rounded ">Pending</span>

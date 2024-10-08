@@ -12,16 +12,22 @@ use RealRashid\SweetAlert\Facades\Alert;
 class OrderController extends Controller
 {
     //order lists page
-    public function list()
+    public function list(Request $request)
     {
 
         $orders = Order::with("user") // for lazyloading
             ->when(request()->search, function ($query) {
                 $query->where("order_id", "like", "%" . request()->search . "%");
             })
+            ->when($request->status,function($query) use($request){
+                $query->where("status",$request->status);
+            })
+            ->when($request->status =="pending",function($q){
+                $q->where("status",0);
+            })
             ->groupBy("order_id")
             ->orderBy("created_at", "desc")
-            ->paginate(5);
+            ->paginate(10);
         return view("admin.order.list", compact("orders"));
     }
 
@@ -77,7 +83,7 @@ class OrderController extends Controller
 
     }
 
-    
+
     // order reject
     public function orderReject(Request $request, $order_id)
     {

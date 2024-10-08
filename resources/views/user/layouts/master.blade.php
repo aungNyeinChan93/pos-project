@@ -101,7 +101,7 @@
                                     <a href="{{ route('profile#editUser') }}" class="dropdown-item">Edit Profile</a>
                                     <a href="{{ route('profile#passwordChangePage') }}" class="dropdown-item">Change
                                         Password</a>
-                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                    {{-- <a href="testimonial.html" class="dropdown-item">Testimonial</a> --}}
                                     <form action="{{ url('logout') }}" method="post" class="dropdown-item">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-outline-success">Logout</button>
